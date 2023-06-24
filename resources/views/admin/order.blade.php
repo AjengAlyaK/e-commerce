@@ -64,14 +64,16 @@
                             <td>{{$o->product_title}}</td>
                             <td>{{$o->quantity}}</td>
                             <td>{{$o->price}}</td>
-                            <td>{{$o->payment_status}}</td>
+                            <td>
+                                {{$o->payment_status}}
+                            </td>
                             <td>{{$o->delivery_status}}</td>
                             <td><img src="product/{{$o->image}}"></td>
                             <td>
                                 @if ($o->delivery_status == 'processing')
-                                    <a class="btn btn-primary" href="/delivered/{{$o->id}}">Deliver</a>
+                                    <a onclick="return confirm('Are you sure ?')" class="btn btn-primary" href="/delivered/{{$o->id}}">Deliver</a>
                                 @else
-                                    <p>Delivered</p>
+                                    <p style="color:green">delivered</p>
                                 @endif
                             </td>
                         </tr>

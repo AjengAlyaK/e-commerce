@@ -111,7 +111,7 @@ class AdminController extends Controller
     {
         $order = Order::find($id);
         $order->delivery_status = "delivered";
-        
+        $order->payment_status = "paid";
         $order->save();
 
         return redirect()->back();
