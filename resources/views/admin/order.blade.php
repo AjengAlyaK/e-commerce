@@ -52,6 +52,7 @@
                             <th>Delivery Status</th>
                             <th>Image</th>
                             <th>Delivered</th>
+                            <th>Print</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,6 +77,7 @@
                                     <p style="color:green">delivered</p>
                                 @endif
                             </td>
+                            <td><a href="/print_pdf/{{$o->id}}" class="btn btn-info">Print</a></td>
                         </tr>
                         @endforeach
                         
