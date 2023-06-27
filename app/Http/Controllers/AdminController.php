@@ -122,6 +122,7 @@ class AdminController extends Controller
     public function print_pdf($id) 
     {
         $order = Order::find($id);
+        // this thing i just know or simply new knowledge
         $pdf = PDF::loadView('admin.pdf', compact('order'));
 
         return $pdf->download('order_details.pdf');
