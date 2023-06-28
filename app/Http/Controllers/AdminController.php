@@ -127,4 +127,10 @@ class AdminController extends Controller
 
         return $pdf->download('order_details.pdf');
     }
+
+    public function send_email($id)
+    {
+        $order = Order::find($id);
+        return view('admin.email_info', compact('order'));
+    }
 }

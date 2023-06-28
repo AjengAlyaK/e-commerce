@@ -53,6 +53,7 @@
                             <th>Image</th>
                             <th>Delivered</th>
                             <th>Print</th>
+                            <th>Send Email</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -78,6 +79,7 @@
                                 @endif
                             </td>
                             <td><a href="/print_pdf/{{$o->id}}" class="btn btn-info">Print</a></td>
+                            <td><a href="/send_email/{{$o->id}}" class="btn btn-success">Send</a></td>
                         </tr>
                         @endforeach
                         
