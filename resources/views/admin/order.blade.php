@@ -37,6 +37,14 @@
         <div class="main-panel">
             <div class="content-wrapper">
                 <h1 class="title_deg">All Orders</h1>
+
+                <div style="padding-bottom: 30px;">
+                    <form action="/search" method="get">
+                        @csrf
+                        <input style="color:black" type="text" name="search" placeholder="Search For Something">
+                        <button class="btn btn-outline-primary">Search</button>
+                    </form>
+                </div>
                 
                 <table class="table_deg">
                     <thead>
@@ -57,7 +65,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($order as $o)
+                        @forelse ($order as $o)
                         <tr>
                             <td>{{$o->name}}</td>
                             <td>{{$o->email}}</td>
@@ -81,7 +89,14 @@
                             <td><a href="/print_pdf/{{$o->id}}" class="btn btn-info">Print</a></td>
                             <td><a href="/send_email/{{$o->id}}" class="btn btn-success">Send</a></td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="16">
+                                No Data Found
+                            </td>
+                        </tr>
+
+                        @endforelse
                         
                     </tbody>
                 </table>

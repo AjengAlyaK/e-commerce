@@ -38,6 +38,8 @@ Route::get('/send_email/{id}', [AdminController::class, 'send_email']);
 
 Route::post('/send_user_email/{id}', [AdminController::class, 'send_user_email']);
 
+Route::get('/search', [AdminController::class, 'search']);
+
 // User
 Route::get('/detail_product/{id}', [HomeController::class, 'detail_product']);
 Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);
