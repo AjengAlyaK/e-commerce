@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
-use App\Models\Cart;
-use App\Models\Order;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Session;
 use Stripe;
+use Session;
+use App\Models\Cart;
+use App\Models\User;
+use App\Models\Order;
+use App\Models\Product;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,7 +26,14 @@ class HomeController extends Controller
         $usertype = Auth::user()->usertype;
 
         if($usertype == '1'){
-            return view('admin.home');
+            $total_product = Product::all()->count();
+            $total_order = Order::all()->count();
+            $total_user = User::all()->count();
+            $total_revenue = DB::table('orders')->sum('price');
+            $total_delivered = Order::where('delivery_status','delivered')->count();
+            $total_processing = Order::where('delivery_status','processing')->count();
+
+            return view('admin.home', compact('total_product', 'total_order', 'total_user', 'total_revenue', 'total_delivered', 'total_processing'));
         } else {
             $product = Product::paginate(10);
 

@@ -13,7 +13,7 @@
             <!-- partial:partials/_navbar.html -->
             @include('admin.header')
             <!-- partial -->
-            {{-- @include('admin.body') --}}
+            @include('admin.body')
         <!-- container-scroller -->
         <!-- plugins:js -->
             @include('admin.script')
