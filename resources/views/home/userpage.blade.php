@@ -43,6 +43,36 @@
         @include('home.product')
         <!-- end product section -->
 
+        {{-- Comment and reply system start here --}}
+        <div style="text-align: center; padding:30px">
+            <h1 style="font-size: 30px;text-align: center; padding-top:20px; padding-bottom: 20px;">Comments</h1>
+
+            <form action="/add_comment" method="post">
+                @csrf
+                <textarea placeholder="Comment something here" style="height: 150px;width:600px;" name="comment"></textarea><br>
+                <input type="submit" class="btn btn-primary" value="Comment">
+            </form>
+        </div>
+
+        <div style="padding-left: 20%;">
+            <h1 style="font-size:20px; padding-bottom: 20px;">All Comments</h1>
+
+            @foreach ($comment as $c)
+            <div>
+                <b>{{$c->name}}</b>
+                <p>{{$c->comment}}</p>
+                
+                <a href="javascript::void(0);" style="color:blue;" onclick="reply(this)">Reply</a>
+            </div>
+            @endforeach
+
+            <div style="display: none" class="replyDiv">
+                <textarea style="height:100px;width:500px;" placeholder="write something here"></textarea><br>
+                <a href="" class="btn btn-primary">Reply</a>
+            </div>
+        </div>
+
+        {{-- Comment and reply system start here --}}
         <!-- subscribe section -->
         @include('home.subscribe')
         <!-- end subscribe section -->
@@ -52,13 +82,13 @@
         <!-- footer start -->
         @include('home.footer')
         <!-- footer end -->
-        <div class="cpy_">
-            <p class="mx-auto">© 2021 All Rights Reserved By <a href="https://html.design/">Free Html Templates</a><br>
-            
-                Distributed By <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
-            
-            </p>
-        </div>
+        
+        <script>
+            function reply(caller){
+                $('.replyDiv').insertAfter($(caller));
+                $('.replyDiv').show();
+            }
+        </script>
         <!-- jQery -->
         <script src="home/js/jquery-3.4.1.min.js"></script>
         <!-- popper js -->

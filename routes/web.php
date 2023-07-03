@@ -39,7 +39,7 @@ Route::get('/send_email/{id}', [AdminController::class, 'send_email']);
 Route::post('/send_user_email/{id}', [AdminController::class, 'send_user_email']);
 
 Route::get('/search', [AdminController::class, 'search']);
-
+Route::get('/add_comment', [AdminController::class, 'add_comment']);
 // User
 Route::get('/detail_product/{id}', [HomeController::class, 'detail_product']);
 Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);
@@ -50,3 +50,4 @@ Route::get('/cash_order', [HomeController::class, 'cash_order']);
 Route::get('/stripe/{total_price}', [HomeController::class, 'stripe']);
 
 Route::post('stripe/{total_price}', [HomeController::class, 'stripePost'])->name('stripe.post');
+Route::post('/add_comment', [HomeController::class, 'add_comment']);
