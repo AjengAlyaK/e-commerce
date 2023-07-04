@@ -62,13 +62,28 @@
                 <b>{{$c->name}}</b>
                 <p>{{$c->comment}}</p>
                 
-                <a href="javascript::void(0);" style="color:blue;" onclick="reply(this)">Reply</a>
+                <a href="javascript::void(0);" style="color:blue;" onclick="reply(this)" data-Commentid="{{$c->id}}">Reply</a>
             </div>
+                @foreach ($reply as $r)
+                    @if ($r->comment_id == $c->id)
+                    <div style="padding-left: 3%; padding-bottom: 10px;">
+                        <b>{{$r->name}}</b>
+                        <p>{{$r->reply}}</p>
+                        <a href="javascript::void(0);" style="color:blue;" onclick="reply(this)" data-Commentid="{{$c->id}}">Reply</a>
+                    </div>
+                    @endif
+                @endforeach
             @endforeach
 
+            {{-- Reply Textbox --}}
             <div style="display: none" class="replyDiv">
-                <textarea style="height:100px;width:500px;" placeholder="write something here"></textarea><br>
-                <a href="" class="btn btn-primary">Reply</a>
+                <form action="/add_reply" method="POST">
+                    @csrf
+                    <input hidden type="text" id="commentId" name="commentId">
+                    <textarea style="height:100px;width:500px;" placeholder="write something here" name="reply"></textarea><br>
+                    <button type="submit" class="btn btn-warning">Reply</button>
+                    <a href="javascript::void(0);" class="btn" onClick="reply_close(this)">Close</a>
+                </form>
             </div>
         </div>
 
@@ -85,10 +100,27 @@
         
         <script>
             function reply(caller){
+                document.getElementById('commentId').value=$(caller).attr('data-Commentid');
                 $('.replyDiv').insertAfter($(caller));
                 $('.replyDiv').show();
             }
+
+            function reply_close(caller){
+                $('.replyDiv').hide();
+            }
         </script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) { 
+                var scrollpos = localStorage.getItem('scrollpos');
+                if (scrollpos) window.scrollTo(0, scrollpos);
+            });
+
+            window.onbeforeunload = function(e) {
+                localStorage.setItem('scrollpos', window.scrollY);
+            };
+        </script>
+        
         <!-- jQery -->
         <script src="home/js/jquery-3.4.1.min.js"></script>
         <!-- popper js -->
