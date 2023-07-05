@@ -2,6 +2,14 @@
     <div class="container">
         <div class="heading_container heading_center">
         <h2>Our<span>products</span></h2>
+        <br><br>
+        <div>
+            <form action="/product_search" method="GET">
+                @csrf
+                <input style="width:500px;" type="text" name="search" placeholder="Search for Something">
+                <input type="submit" value="search">
+            </form>
+        </div>
         </div>
         <div class="row">
             @foreach ($product as $p)
@@ -31,10 +39,10 @@
                         <h5>{{$p->title}}</h5>
                         @if ($p->discount_price != null)
                             <h6 style="color: red">Discount price
-                                <br> Rp. {{$p->discount_price}}</h6>
-                            <h6 style="text-decoration: line-through; color:blue">Price <br> Rp. {{$p->price}}</h6>
+                                <br> $                                       {{$p->discount_price}}</h6>
+                            <h6 style="text-decoration: line-through; color:blue">Price <br> ${{$p->price}}</h6>
                         @else
-                            <h6 style="color: blue;">Price <br> Rp. {{$p->price}}</h6>
+                            <h6 style="color: blue;">Price <br> ${{$p->price}}</h6>
                         @endif
                     </div>
                 </div>

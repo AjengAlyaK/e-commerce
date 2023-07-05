@@ -214,4 +214,14 @@ class HomeController extends Controller
         }
     }
 
+    public function product_search(Request $request)
+    {
+        $comment = comment::orderby('id', 'desc')->get();
+        $reply = Reply::all();
+        $search_text = $request->search;
+        $product = product::where('title', 'LIKE', "%$search_text%")->orWhere('category', 'LIKE', "$search_text")->paginate(10);
+        return view('home.userpage', compact('product', 'comment', 'reply'));
+
+    }
+
 }
