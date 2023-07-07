@@ -70,7 +70,7 @@ class HomeController extends Controller
                     $cart->price = $product->price * $cart->quantity;
                 }
                 $cart->save();
-                return redirect()->back();
+                return redirect()->back()->with('message', 'Product Added Successfully');
             } else{
                 $cart = new Cart;
                 $cart->name = $user->name;
@@ -88,7 +88,7 @@ class HomeController extends Controller
                 $cart->product_id = $product->id;
                 $cart->user_id = $user->id;
                 $cart->save();
-                return redirect()->back();
+                return redirect()->back()->with('message', 'Product Added Successfully');
             }
 
             

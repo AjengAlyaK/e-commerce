@@ -3,21 +3,29 @@
 namespace App\Http\Controllers;
 
 use PDF;
+use Notification;
 use App\Models\Order;
-use App\Models\Product;
 // use Barryvdh\DomPDF\PDF;
+use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
-use Notification;
 use App\Notifications\SendEmailNotification;
 
 class AdminController extends Controller
 {
     public function view_category()
     {
-        $category =  Category::all();
-        return view("admin.category", compact('category'));
+        if(Auth::id())
+        {
+            $category =  Category::all();
+            return view("admin.category", compact('category'));
+        }
+        else
+        {
+            return redirect('login');
+        }
     }
 
     public function add_category(Request $request)
@@ -84,25 +92,30 @@ class AdminController extends Controller
 
     public function update_product_confirm(Request $request, $id)
     {
-        $product =Product::find($id);
-        $product->title = $request->title;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->quantity = $request->quantity;
-        $product->discount_price = $request->discount_price;
-        $product->category = $request->category;
+        if(Auth::id()){
+            $product =Product::find($id);
+            $product->title = $request->title;
+            $product->description = $request->description;
+            $product->price = $request->price;
+            $product->quantity = $request->quantity;
+            $product->discount_price = $request->discount_price;
+            $product->category = $request->category;
 
-        $image = $request->image;
-        if($image){
-            $imagename = time().'.'.$image->getClientOriginalExtension();
-            $request->image->move('product', $imagename);
+            $image = $request->image;
+            if($image){
+                $imagename = time().'.'.$image->getClientOriginalExtension();
+                $request->image->move('product', $imagename);
 
-            $product->image = $imagename;
+                $product->image = $imagename;
+            }
+
+            $product->save();
+
+            return redirect()->back()->with('message', 'Product Updated Successfully');
+        } else {
+            return redirect('login');
         }
-
-        $product->save();
-
-        return redirect()->back()->with('message', 'Product Updated Successfully');
+        
     }
 
     public function order()

@@ -4,6 +4,7 @@
     <base href="/public">
     <!-- Required meta tags -->
     @include('admin.css')
+    
     <style>
         .title_deg{
             text-align: center;
