@@ -78,7 +78,8 @@
                     <td>{{$c->quantity}}</td>
                     <td>${{$c->price}}</td>
                     <td><img style="margin: auto; width: 175px;" src="product/{{$c->image}}" alt=""></td>
-                    <td><a onclick="return confirm('Are you sure remove this product from your cart ?')" class="btn btn-danger" href="/remove_product/{{$c->id}}">Remove</a></td>
+                    {{-- 9/7/23 --}}
+                    <td><a onclick="confirmation(event)" class="btn btn-danger" href="/remove_product/{{$c->id}}">Remove</a></td>
                 </tr>
                 <?php $total_price = $total_price + $c->price; ?>
                 @endforeach

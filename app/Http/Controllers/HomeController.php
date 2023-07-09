@@ -13,6 +13,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class HomeController extends Controller
 {
@@ -88,7 +89,10 @@ class HomeController extends Controller
                 $cart->product_id = $product->id;
                 $cart->user_id = $user->id;
                 $cart->save();
-                return redirect()->back()->with('message', 'Product Added Successfully');
+                // return redirect()->back()->with('message', 'Product Added Successfully');
+                Alert::success('Product Added Successfully', 'We have added product to the cart');
+                // success is a design , so it also can be : warning, info
+                return redirect()->back();
             }
 
             
