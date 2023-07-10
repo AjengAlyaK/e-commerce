@@ -71,7 +71,8 @@ class HomeController extends Controller
                     $cart->price = $product->price * $cart->quantity;
                 }
                 $cart->save();
-                return redirect()->back()->with('message', 'Product Added Successfully');
+                Alert::success('Product Added Successfully', 'We have added product to the cart');
+                return redirect()->back();
             } else{
                 $cart = new Cart;
                 $cart->name = $user->name;
